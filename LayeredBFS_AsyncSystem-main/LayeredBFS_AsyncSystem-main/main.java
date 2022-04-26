@@ -21,6 +21,7 @@ public class main {
 		}
 		}
 		Master master = new Master(f.numProcesses, f.adjInformation, f.nodeToCreateTreeAt);
+		
 		master.start();
 		
 	}

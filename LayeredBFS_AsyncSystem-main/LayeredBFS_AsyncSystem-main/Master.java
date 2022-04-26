@@ -29,13 +29,13 @@ public class Master extends Thread{
 	
 	public static synchronized int generateRandom() {
 		int w = generator.nextInt(1, 13);
-		System.out.println("Wait time:"+w);
+		Logger.Level.log(Logger.Level.TRACE,"Wait time:"+w);
 		msg_count += 1;
 		return w;
 	}
 	
 	public void run() {
-		//System.out.println("This is master thread");
+		Logger.Level.log(Logger.Level.TRACE, "This is master thread");
 		int i = 0;
 		for(i=0; i<numOfChildProcesses; i++) {
 			processes[i] = new Process(i+1);
@@ -66,7 +66,7 @@ public class Master extends Thread{
 			} 
 		}
 		clock += 1;
-		System.out.println("-----------Round: "+clock+"---------------");
+		Logger.Level.log(Logger.Level.TRACE,"-----------Round: "+clock+"---------------");
 		int count = 0;
 		for(int l=0; l< this.numOfChildProcesses; l++) {
 			if(this.processes[l].terminate == true) {
@@ -102,7 +102,7 @@ public class Master extends Thread{
 			break;
 		}
 		}
-		System.out.println("All threads have terminated. Master thread exits");
+		Logger.Level.log(Logger.Level.TRACE,"All threads have terminated. Master thread exits");
 	}
 }
 

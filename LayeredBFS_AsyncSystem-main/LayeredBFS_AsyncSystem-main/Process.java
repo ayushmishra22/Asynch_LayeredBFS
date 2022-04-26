@@ -27,10 +27,10 @@ public class Process extends Thread {
 	
 	
 	public void run() {
-		System.out.println("Started thread: "+uid);
+		Logger.Level.log(Logger.Level.TRACE,"Started thread: "+uid);
 		synchronized (this){
 		for(int i=0; i<this.neighbors.size(); i++) {
-			System.out.print(this.uid+"///"+this.neighbors.get(i).uid+"-----");
+			//System.out.print(this.uid+"///"+this.neighbors.get(i).uid+"-----");
 		}
 		}
 		ready_round = 1;
@@ -234,10 +234,6 @@ public class Process extends Thread {
 					
 					if(r_msg.msg_type == "reject") {
 						this.convergecast.add(0);
-						if(this.uid == 1) {
-							int g=0;
-							int h = 1;
-						}
 					}
 					
 					if(r_msg.msg_type == "ack") {
@@ -306,7 +302,7 @@ public class Process extends Thread {
 						if(this.newNodes == 0) {
 								if(!this.terminate) {
 								//No new nodes were added. Layered BFS completed. Instruct all processes to terminate.
-								System.out.println("TERRRRRMMMMMIIIIINNNNNAAAAATTTTEEEEEEEE!");
+									Logger.Level.log(Logger.Level.TRACE,"TERRRRRMMMMMIIIIINNNNNAAAAATTTTEEEEEEEE!");
 								int[] print_children = new int[this.children.size()];
 								for(int m=0; m< this.children.size(); m++) {
 									print_children[m] = this.children.get(m).uid; 
@@ -322,7 +318,7 @@ public class Process extends Thread {
 							//throw new InterruptedException();
 						}
 						else {
-							System.out.println("Going to the next level");
+							Logger.Level.log(Logger.Level.TRACE,"Going to the next level");
 							this.level += 1;
 							//this.msg_sent_per_level = 0;
 							this.newNodes = 0;
@@ -346,7 +342,7 @@ public class Process extends Thread {
 			}
 		}
 		catch(InterruptedException e) {
-		System.out.println("Interrupted. Exiting: "+this.uid);
+			Logger.Level.log(Logger.Level.TRACE,"Interrupted. Exiting: "+this.uid);
 		}
 	}
 	
